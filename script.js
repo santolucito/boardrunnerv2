@@ -82,11 +82,24 @@ function createCaseElement(caseData) {
     const providerName = provider ? provider.name : 'Unknown Provider';
     const patientName = caseData.patientName || 'Unknown Patient';
 
-    caseEl.innerHTML = `
-        <div class="case-title">${serviceName} - ${patientName}</div>
-        <div class="case-provider">${providerName}</div>
-        <div class="case-duration">${caseData.duration}min</div>
-    `;
+    // Check if we're on mobile
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        // On mobile, show only patient name
+        caseEl.innerHTML = `
+            <div class="case-title">${patientName}</div>
+            <div class="case-provider" style="display: none;">${providerName}</div>
+            <div class="case-duration" style="display: none;">${caseData.duration}min</div>
+        `;
+    } else {
+        // On desktop, show full information
+        caseEl.innerHTML = `
+            <div class="case-title">${serviceName} - ${patientName}</div>
+            <div class="case-provider">${providerName}</div>
+            <div class="case-duration">${caseData.duration}min</div>
+        `;
+    }
 
     // Add drag event listeners
     caseEl.draggable = true;
@@ -149,6 +162,11 @@ function handleDragStart(e) {
     draggedCaseElement = e.target;
     e.target.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
+
+    // For mobile devices, add touch support
+    if (e.dataTransfer) {
+        e.dataTransfer.setData('text/plain', '');
+    }
 }
 
 function handleDragEnd(e) {
@@ -251,12 +269,28 @@ function casesOverlap(case1, case2) {
 
 // Modal functions
 function openAddCaseModal() {
-    document.getElementById('addCaseModal').style.display = 'block';
+    const modal = document.getElementById('addCaseModal');
+    modal.style.display = 'block';
+
+    // Prevent body scroll on mobile when modal is open
+    document.body.style.overflow = 'hidden';
+
+    // Focus on first input for better mobile UX
+    setTimeout(() => {
+        const firstInput = modal.querySelector('select, input');
+        if (firstInput) {
+            firstInput.focus();
+        }
+    }, 100);
 }
 
 function closeAddCaseModal() {
-    document.getElementById('addCaseModal').style.display = 'none';
+    const modal = document.getElementById('addCaseModal');
+    modal.style.display = 'none';
     document.getElementById('casePatientName').value = '';
+
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
 }
 
 function addCase() {
@@ -674,6 +708,29 @@ function loadMentalHealthJSON() {
         });
 }
 
+// Add click outside modal to close functionality
+function addModalClickOutsideHandler() {
+    const modal = document.getElementById('addCaseModal');
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeAddCaseModal();
+        }
+    });
+}
+
+// Add scroll indicators for mobile timeline (removed arrow buttons)
+function addScrollIndicators() {
+    // Function kept for compatibility but no longer adds arrow buttons
+    // Horizontal scrolling is still enabled through CSS
+    return;
+}
+
+// Handle window resize to update case display
+function handleWindowResize() {
+    // Re-render cases when switching between mobile and desktop
+    renderCases();
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Initializing application...');
@@ -685,6 +742,11 @@ document.addEventListener('DOMContentLoaded', function () {
         populateServiceDropdown();
         populateRoomDropdown();
         addFormEventListeners();
+        addModalClickOutsideHandler();
+        addScrollIndicators();
+
+        // Add window resize listener
+        window.addEventListener('resize', handleWindowResize);
 
         // Load mental health JSON by default
         loadMentalHealthJSON();
