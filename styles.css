@@ -1,0 +1,265 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.header {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 24px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-input {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-input input[type=file] {
+    position: absolute;
+    left: -9999px;
+}
+
+.btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+.btn-secondary {
+    background: #6c757d;
+}
+
+.btn-secondary:hover {
+    background: #545b62;
+}
+
+.schedule-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.time-header {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.room-label {
+    width: 120px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-right: 2px solid #dee2e6;
+    font-weight: bold;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-slot {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #dee2e6;
+    font-size: 12px;
+    color: #6c757d;
+    min-width: 60px;
+}
+
+.schedule-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-row {
+    display: flex;
+    min-height: 80px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.room-name {
+    width: 120px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-right: 2px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #495057;
+}
+
+.time-slots {
+    flex: 1;
+    display: flex;
+    position: relative;
+}
+
+.time-slot-cell {
+    flex: 1;
+    border-right: 1px solid #e9ecef;
+    min-height: 80px;
+    position: relative;
+}
+
+.case {
+    position: absolute;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: move;
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    z-index: 10;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.case:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.case.dragging {
+    opacity: 0.8;
+    transform: rotate(2deg);
+    z-index: 1000;
+}
+
+.case-title {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.case-provider {
+    font-size: 10px;
+    opacity: 0.9;
+    margin-bottom: 2px;
+}
+
+.case-duration {
+    font-size: 10px;
+    opacity: 0.9;
+}
+
+.case.overlap {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.drop-zone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 123, 255, 0.1);
+    border: 2px dashed #007bff;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+.drop-zone.active {
+    opacity: 1;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}

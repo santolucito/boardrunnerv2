@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Schedule Organizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Case Schedule Organizer</h1>
+        <div class="controls">
+            <div class="file-input">
+                <input type="file" id="jsonFile" accept=".json" />
+                <button class="btn" onclick="document.getElementById('jsonFile').click()">Load JSON</button>
+            </div>
+            <button class="btn btn-secondary" onclick="exportSchedule()">Export JSON</button>
+            <button class="btn" onclick="openAddCaseModal()">Add Case</button>
+        </div>
+    </div>
+
+    <div class="schedule-container">
+        <div class="time-header">
+            <div class="room-label">Room</div>
+            <div class="time-slot">8:00</div>
+            <div class="time-slot">8:30</div>
+            <div class="time-slot">9:00</div>
+            <div class="time-slot">9:30</div>
+            <div class="time-slot">10:00</div>
+            <div class="time-slot">10:30</div>
+            <div class="time-slot">11:00</div>
+            <div class="time-slot">11:30</div>
+            <div class="time-slot">12:00</div>
+            <div class="time-slot">12:30</div>
+            <div class="time-slot">13:00</div>
+            <div class="time-slot">13:30</div>
+            <div class="time-slot">14:00</div>
+            <div class="time-slot">14:30</div>
+            <div class="time-slot">15:00</div>
+            <div class="time-slot">15:30</div>
+            <div class="time-slot">16:00</div>
+            <div class="time-slot">16:30</div>
+            <div class="time-slot">17:00</div>
+        </div>
+
+        <div class="schedule-grid" id="scheduleGrid">
+            <!-- Room rows will be generated here -->
+        </div>
+    </div>
+
+    <!-- Add Case Modal -->
+    <div id="addCaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddCaseModal()">&times;</span>
+            <h2>Add New Case</h2>
+            <div class="form-group">
+                <label for="caseService">Service:</label>
+                <select id="caseService">
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="casePatientName">Patient Name:</label>
+                <input type="text" id="casePatientName" placeholder="Enter patient name">
+            </div>
+            <div class="form-group">
+                <label for="caseRoom">Room:</label>
+                <select id="caseRoom">
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="caseStartTime">Start Time:</label>
+                <select id="caseStartTime">
+                    <option value="8:00">8:00</option>
+                    <option value="8:30">8:30</option>
+                    <option value="9:00">9:00</option>
+                    <option value="9:30">9:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="caseDuration">Duration (minutes):</label>
+                <select id="caseDuration">
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="90">1.5 hours</option>
+                    <option value="120">2 hours</option>
+                    <option value="180">3 hours</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="caseProvider">Provider:</label>
+                <select id="caseProvider">
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeAddCaseModal()">Cancel</button>
+                <button class="btn" onclick="addCase()">Add Case</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

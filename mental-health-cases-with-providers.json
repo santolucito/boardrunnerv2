@@ -1,0 +1,395 @@
+{
+    "providers": [
+        {
+            "id": "psych1",
+            "name": "Dr. Sarah Chen",
+            "title": "Psychiatrist",
+            "type": "psychiatrist"
+        },
+        {
+            "id": "psych2",
+            "name": "Dr. Michael Rodriguez",
+            "title": "Clinical Psychologist",
+            "type": "psychologist"
+        },
+        {
+            "id": "psych3",
+            "name": "Dr. Emily Watson",
+            "title": "Clinical Psychologist",
+            "type": "psychologist"
+        },
+        {
+            "id": "psych4",
+            "name": "Dr. James Thompson",
+            "title": "Clinical Psychologist",
+            "type": "psychologist"
+        },
+        {
+            "id": "psych5",
+            "name": "Dr. Lisa Park",
+            "title": "Clinical Psychologist",
+            "type": "psychologist"
+        },
+        {
+            "id": "mind1",
+            "name": "Maya Patel",
+            "title": "Mindfulness Guide",
+            "type": "mindfulness_guide"
+        },
+        {
+            "id": "sw1",
+            "name": "Robert Kim",
+            "title": "Social Worker",
+            "type": "social_worker"
+        },
+        {
+            "id": "pmt1",
+            "name": "Anna Kowalski",
+            "title": "Psychomotor Therapist",
+            "type": "psychomotor_therapist"
+        }
+    ],
+    "services": [
+        {
+            "id": "intake",
+            "name": "First Time Intake",
+            "duration": 45,
+            "description": "Initial patient assessment and evaluation"
+        },
+        {
+            "id": "cbt",
+            "name": "Cognitive Behavioral Therapy",
+            "duration": 45,
+            "description": "Individual CBT therapy session"
+        },
+        {
+            "id": "ketamine",
+            "name": "Ketamine Treatment",
+            "duration": 30,
+            "description": "Ketamine infusion therapy session"
+        },
+        {
+            "id": "mindfulness",
+            "name": "Mindfulness Workshop",
+            "duration": 60,
+            "description": "Group mindfulness and meditation session"
+        },
+        {
+            "id": "ect",
+            "name": "Electrical Convulsive Therapy",
+            "duration": 30,
+            "description": "ECT treatment session"
+        },
+        {
+            "id": "med_followup",
+            "name": "Medication Follow-up",
+            "duration": 15,
+            "description": "Medication reconciliation and follow-up appointment"
+        },
+        {
+            "id": "social_assessment",
+            "name": "Social Work Assessment",
+            "duration": 30,
+            "description": "Social work evaluation and assessment"
+        },
+        {
+            "id": "psychomotor",
+            "name": "Psychomotor Therapy",
+            "duration": 45,
+            "description": "Movement-based therapy session"
+        }
+    ],
+    "rooms": [
+        {
+            "id": "room1",
+            "name": "Room 1",
+            "description": "Consultation room 1"
+        },
+        {
+            "id": "room2",
+            "name": "Room 2",
+            "description": "Consultation room 2"
+        },
+        {
+            "id": "room3",
+            "name": "Room 3",
+            "description": "Group therapy room"
+        },
+        {
+            "id": "room4",
+            "name": "Room 4",
+            "description": "Treatment room"
+        },
+        {
+            "id": "room5",
+            "name": "Room 5",
+            "description": "ECT room"
+        }
+    ],
+    "roomConstraints": {
+        "room1": [
+            "intake",
+            "cbt",
+            "ketamine",
+            "med_followup",
+            "social_assessment"
+        ],
+        "room2": [
+            "intake",
+            "cbt",
+            "ketamine",
+            "med_followup",
+            "social_assessment"
+        ],
+        "room3": [
+            "mindfulness",
+            "psychomotor"
+        ],
+        "room4": [
+            "intake",
+            "cbt",
+            "med_followup",
+            "social_assessment"
+        ],
+        "room5": [
+            "ect"
+        ]
+    },
+    "constraints": {
+        "psych1": [
+            "intake",
+            "ketamine",
+            "ect",
+            "med_followup",
+            "mindfulness"
+        ],
+        "psych2": [
+            "intake",
+            "cbt",
+            "med_followup"
+        ],
+        "psych3": [
+            "intake",
+            "cbt"
+        ],
+        "psych4": [
+            "intake",
+            "cbt",
+            "med_followup"
+        ],
+        "psych5": [
+            "intake",
+            "cbt",
+            "mindfulness"
+        ],
+        "mind1": [
+            "mindfulness"
+        ],
+        "sw1": [
+            "social_assessment"
+        ],
+        "pmt1": [
+            "psychomotor"
+        ]
+    },
+    "cases": [
+        {
+            "id": "1",
+            "serviceId": "intake",
+            "patientName": "Sarah M.",
+            "roomId": "room1",
+            "startTime": "8:00",
+            "duration": 45,
+            "providerId": "psych1"
+        },
+        {
+            "id": "2",
+            "serviceId": "cbt",
+            "patientName": "John D.",
+            "roomId": "room2",
+            "startTime": "8:30",
+            "duration": 45,
+            "providerId": "psych2"
+        },
+        {
+            "id": "3",
+            "serviceId": "ketamine",
+            "patientName": "Maria L.",
+            "roomId": "room3",
+            "startTime": "9:00",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "4",
+            "serviceId": "mindfulness",
+            "patientName": "Group A",
+            "roomId": "room4",
+            "startTime": "9:00",
+            "duration": 60,
+            "providerId": "mind1"
+        },
+        {
+            "id": "5",
+            "serviceId": "ect",
+            "patientName": "Robert K.",
+            "roomId": "room5",
+            "startTime": "9:30",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "6",
+            "serviceId": "med_followup",
+            "patientName": "Lisa P.",
+            "roomId": "room1",
+            "startTime": "9:45",
+            "duration": 15,
+            "providerId": "psych1"
+        },
+        {
+            "id": "7",
+            "serviceId": "intake",
+            "patientName": "Michael R.",
+            "roomId": "room2",
+            "startTime": "10:00",
+            "duration": 45,
+            "providerId": "psych3"
+        },
+        {
+            "id": "8",
+            "serviceId": "cbt",
+            "patientName": "Jennifer W.",
+            "roomId": "room3",
+            "startTime": "10:30",
+            "duration": 45,
+            "providerId": "psych4"
+        },
+        {
+            "id": "9",
+            "serviceId": "ketamine",
+            "patientName": "David S.",
+            "roomId": "room4",
+            "startTime": "11:00",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "10",
+            "serviceId": "med_followup",
+            "patientName": "Anna T.",
+            "roomId": "room5",
+            "startTime": "11:15",
+            "duration": 15,
+            "providerId": "psych1"
+        },
+        {
+            "id": "11",
+            "serviceId": "ect",
+            "patientName": "Patricia H.",
+            "roomId": "room1",
+            "startTime": "11:30",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "12",
+            "serviceId": "mindfulness",
+            "patientName": "Group B",
+            "roomId": "room2",
+            "startTime": "12:00",
+            "duration": 60,
+            "providerId": "mind1"
+        },
+        {
+            "id": "13",
+            "serviceId": "cbt",
+            "patientName": "Thomas C.",
+            "roomId": "room3",
+            "startTime": "13:00",
+            "duration": 45,
+            "providerId": "psych5"
+        },
+        {
+            "id": "14",
+            "serviceId": "intake",
+            "patientName": "Emily G.",
+            "roomId": "room4",
+            "startTime": "13:30",
+            "duration": 45,
+            "providerId": "psych2"
+        },
+        {
+            "id": "15",
+            "serviceId": "ketamine",
+            "patientName": "James B.",
+            "roomId": "room5",
+            "startTime": "14:00",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "16",
+            "serviceId": "med_followup",
+            "patientName": "Rachel M.",
+            "roomId": "room1",
+            "startTime": "14:30",
+            "duration": 15,
+            "providerId": "psych1"
+        },
+        {
+            "id": "17",
+            "serviceId": "ect",
+            "patientName": "William F.",
+            "roomId": "room2",
+            "startTime": "15:00",
+            "duration": 30,
+            "providerId": "psych1"
+        },
+        {
+            "id": "18",
+            "serviceId": "cbt",
+            "patientName": "Amanda K.",
+            "roomId": "room3",
+            "startTime": "15:30",
+            "duration": 45,
+            "providerId": "psych3"
+        },
+        {
+            "id": "19",
+            "serviceId": "med_followup",
+            "patientName": "Christopher L.",
+            "roomId": "room4",
+            "startTime": "16:00",
+            "duration": 15,
+            "providerId": "psych1"
+        },
+        {
+            "id": "20",
+            "serviceId": "intake",
+            "patientName": "Nicole A.",
+            "roomId": "room5",
+            "startTime": "16:15",
+            "duration": 45,
+            "providerId": "psych4"
+        },
+        {
+            "id": "21",
+            "serviceId": "social_assessment",
+            "patientName": "Kevin D.",
+            "roomId": "room1",
+            "startTime": "16:30",
+            "duration": 30,
+            "providerId": "sw1"
+        },
+        {
+            "id": "22",
+            "serviceId": "psychomotor",
+            "patientName": "Helen R.",
+            "roomId": "room2",
+            "startTime": "16:45",
+            "duration": 45,
+            "providerId": "pmt1"
+        }
+    ]
+}
