@@ -609,6 +609,71 @@ function addFormEventListeners() {
     });
 }
 
+// Load mental health JSON by default
+function loadMentalHealthJSON() {
+    fetch('mental-health-cases-with-providers.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Loading mental health JSON file by default');
+            console.log('JSON parsed successfully:', data);
+
+            // Handle JSON format with providers, services, rooms, constraints, and roomConstraints
+            if (data.cases && data.providers && data.services && data.rooms && data.constraints && data.roomConstraints) {
+                cases = data.cases;
+                providers = data.providers;
+                services = data.services;
+                rooms = data.rooms;
+                constraints = data.constraints;
+                roomConstraints = data.roomConstraints;
+
+                console.log('Data loaded:', {
+                    cases: cases.length,
+                    providers: providers.length,
+                    services: services.length,
+                    rooms: rooms.length,
+                    constraints: Object.keys(constraints).length,
+                    roomConstraints: Object.keys(roomConstraints).length
+                });
+            } else {
+                const missing = [];
+                if (!data.cases) missing.push('cases');
+                if (!data.providers) missing.push('providers');
+                if (!data.services) missing.push('services');
+                if (!data.rooms) missing.push('rooms');
+                if (!data.constraints) missing.push('constraints');
+                if (!data.roomConstraints) missing.push('roomConstraints');
+
+                console.error('Invalid JSON format. Missing required properties:', missing);
+                return;
+            }
+
+            populateProviderDropdown();
+            populateServiceDropdown();
+            populateRoomDropdown();
+            validateExistingCases();
+
+            // Re-initialize the schedule with the loaded rooms data
+            initSchedule();
+
+            // Re-add drop zones to the newly created time slots
+            addDropZones();
+
+            // Re-add event listeners for the form dropdowns
+            addFormEventListeners();
+
+            console.log('Mental health schedule loaded successfully');
+        })
+        .catch(error => {
+            console.error('Error loading mental health JSON:', error);
+            console.log('Continuing without default data - user can still load JSON manually');
+        });
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Initializing application...');
@@ -621,7 +686,10 @@ document.addEventListener('DOMContentLoaded', function () {
         populateRoomDropdown();
         addFormEventListeners();
 
-        console.log('Application initialized successfully (schedule will be created when JSON is loaded)');
+        // Load mental health JSON by default
+        loadMentalHealthJSON();
+
+        console.log('Application initialized successfully');
     } catch (error) {
         console.error('Error initializing application:', error);
         alert('Error initializing application: ' + error.message);
